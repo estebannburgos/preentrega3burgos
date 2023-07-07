@@ -47,7 +47,7 @@
             return;
           }
           let {data: users} = await this.usersDB.getUsers()
-          // console.log(users)
+          // // console.log(users)
           const user = users.find(
           (u) =>
               u.email === this.loginData.email &&
@@ -55,7 +55,7 @@
           );
 
           if (user) {
-            console.log(user)
+            // console.log(user)
             this.$store.dispatch('isLoggedIn', true)
             this.$store.dispatch('userData', user)
             localStorage.setItem('user', JSON.stringify(user));

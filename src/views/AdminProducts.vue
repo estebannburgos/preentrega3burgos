@@ -61,9 +61,9 @@
             // },
             async deleteProduct(id) {
               if (confirm("¿está seguro de querer borrar este producto. Una vez hecho no podrá volver atrás.")) {
-                console.log(id)
+                // console.log(id)
                 let item = await this.productsDB.destroyProduct(id)
-                //console.log(comida)
+                //// console.log(comida)
                 let index = this.products.findIndex(unit => unit.id == item.id)
                 this.products.splice(index, 1)
               }

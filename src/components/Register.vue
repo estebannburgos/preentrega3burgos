@@ -60,7 +60,7 @@
             }
             else {
                 let {data: users} = await this.usersDB.getUsers()
-                // console.log(users)
+                // // console.log(users)
 
                 let user = users.find(
                     u => u.email == this.registerData.email

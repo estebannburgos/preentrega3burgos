@@ -79,16 +79,16 @@
             },
             async getOneProduct(id) {
                 let {data: product} = await this.productsDB.getProduct(id)
-                console.log(product)
+                // console.log(product)
                 this.product = product
             },
             async editProduct(data, id) {
                 let product = await this.productsDB.updateProduct(data, id)
-                console.log(product)
+                // console.log(product)
             },
             async createProduct(data) {
                 let product = await this.productsDB.storeProduct(data)
-                console.log(product)
+                // console.log(product)
             },
             setFormatData() {
                 return {
