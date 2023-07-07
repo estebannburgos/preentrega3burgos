@@ -53,12 +53,14 @@
     name: 'Cart',
     data() {
       return {
-        cartItems: this.cartItems()
+        // cartItems: [],
+        cartDB : new Cart()  
       };
     },
     computed: {
         cartItems() {
-            return this.$store.state.cart;
+            // return this.$store.state.cart;
+            return this.cartInProgress;
         },
       totalPrice() {
         return this.$store.getters.cartTotalPrice;
@@ -79,10 +81,18 @@
       formattedPrice(price) {
         return `CLP $${price}`;
       },
-      confirmPurchase() {
+    //   confirmPurchase() {
         
+    //     alert('¡Felicidades por tu compra!');
+    //     this.cartItems = [];
+    //   },
+      async confirmPurchase() {
+        let carrito = await this.cartDB.updateCart(this.userId, this.cartItems)
+        this.$store.commit('clearCart');
         alert('¡Felicidades por tu compra!');
-        this.cartItems = [];
+        setTimeout(() => {
+          this.$router.push('/home')
+        },3000)
       }
     }
   };

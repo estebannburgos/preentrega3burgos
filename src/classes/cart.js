@@ -22,12 +22,29 @@ export class Cart {
   }
 
   async updateCart(userId, cart) {
-        try {
-        //   return await axios.put(this.url + id, product, this.enviroments.getApi())
-        return (await axios.put(this.url + userId + '/orders/', cart, this.enviroments.getApi())).data
-        }
-        catch(error) {
-            console.error('Error en updateCart: ' + error.message)
-        }  
+
+    axios.get(this.url + userId)
+    .then(response => {
+        let purchase = response.data;
+        purchase.orders = cart; 
+
+        axios.put(this.url + userId, purchase)
+        .then(response => {
+            //console.log('Objeto actualizado:', response.data);
+        })
+        .catch(error => {
+            //console.error('Error al actualizar el objeto:', error);
+        });
+    })
+    .catch(error => {
+        console.error('Error al obtener el objeto:', error);
+    });
+        // try {
+        // //   return await axios.put(this.url + id, product, this.enviroments.getApi())
+        // return (await axios.put(this.url + userId + '/orders/', cart, this.enviroments.getApi())).data
+        // }
+        // catch(error) {
+        //     console.error('Error en updateCart: ' + error.message)
+        // }  
     }
 }
