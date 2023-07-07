@@ -10,6 +10,9 @@ export default new Vuex.Store({
     cart: []
   },
   getters: {
+    cartTotalPrice(state) {
+      return state.cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    }
   },
   mutations: {
     isLoggedIn(state, status) {
@@ -24,10 +27,28 @@ export default new Vuex.Store({
         else 
           localStorage.removeItem('user');
     },
-    addCart(state, product) {
-        // console.log('mutation -> addCart', state, product, new Date().toLocaleString())
-        let index = state.cart.findIndex(item => item.product.id == product.id)
-        if (index == -1) state.cart.push({ quantity: 1, product: product })            
+    addToCart(state, product) {
+      const existingItem = state.cart.find(item => item.product.id === product.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        state.cart.push({ product, quantity: 1 });
+      }
+    },
+    increaseQuantity(state, item) {
+      item.quantity++;
+    },
+    decreaseQuantity(state, item) {
+      if (item.quantity > 1) {
+        item.quantity--;
+      }
+    },
+    removeItem(state, item) {
+      const index = state.cart.indexOf(item);
+      state.cart.splice(index, 1);
+    },
+    clearCart(state) {
+      state.cart = [];
     },
     deleteItemCart(state, index) {
         // console.log('mutation -> deleteItemCart', state, index, new Date().toLocaleString())
@@ -47,9 +68,20 @@ export default new Vuex.Store({
         // console.log('action -> userData', user, new Date().toLocaleString())
         commit('userData', user)
     },
-    addCart({commit},product) {
-        // console.log('action -> addCart', product, new Date().toLocaleString())
-        commit('addCart', product)
+    addToCart({ commit }, product) {
+      commit('addToCart', product);
+    },
+    increaseQuantity({ commit }, item) {
+      commit('increaseQuantity', item);
+    },
+    decreaseQuantity({ commit }, item) {
+      commit('decreaseQuantity', item);
+    },
+    removeItem({ commit }, item) {
+      commit('removeItem', item);
+    },
+    clearCart({ commit }) {
+      commit('clearCart');
     },
     deleteItemCart({commit},index) {
         // console.log('action -> deleteItemCart', index, new Date().toLocaleString())

@@ -46,7 +46,7 @@
         },
       addToCart(productId) {
         let product = this.products.find(product => product.id == productId)
-        this.$store.dispatch('addCart', product)
+        this.$store.dispatch('addToCart', product)
         this.cartSuccess = "Producto agregado al carrito.";
       },
       formattedPrice(price) {

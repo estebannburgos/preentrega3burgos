@@ -7,25 +7,25 @@
             <tr>
                 <th>Producto</th>
                 <th>Precio</th>
-                <th>Cantidad</th>
+                <th class="quantity-column">Cantidad</th>
                 <th>Subtotal</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in cartItems" :key="item.id">
+                <tr v-for="item in cartItems" :key="item.id">
                 <td>{{ item.product.name }}</td>
                 <td>{{ formattedPrice(item.product.price) }}</td>
-                <td>
-                <button class="btn btn-sm btn-secondary" @click="decreaseQuantity(item)">-</button>
-                {{ item.quantity }}
-                <button class="btn btn-sm btn-secondary" @click="increaseQuantity(item)">+</button>
+                <td class="quantity-column">
+                    <button class="btn btn-sm btn-secondary" @click="decreaseQuantity(item)">-</button>
+                    {{ item.quantity }}
+                    <button class="btn btn-sm btn-secondary" @click="increaseQuantity(item)">+</button>
                 </td>
                 <td>{{ formattedPrice(item.product.price * item.quantity) }}</td>
                 <td>
-                <button class="btn btn-sm btn-danger" @click="removeItem(item)">Eliminar</button>
+                    <button class="btn btn-sm btn-danger" @click="removeItem(item)">Eliminar</button>
                 </td>
-            </tr>
+                </tr>
             </tbody>
             <tfoot>
             <tr>
@@ -53,27 +53,29 @@
     name: 'Cart',
     data() {
       return {
-        cartItems: [] 
+        cartItems: this.cartItems()
       };
     },
     computed: {
+        cartItems() {
+            return this.$store.state.cart;
+        },
       totalPrice() {
-        return this.cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
+        return this.$store.getters.cartTotalPrice;
       }
     },
     methods: {
-      increaseQuantity(item) {
-        item.quantity++;
-      },
-      decreaseQuantity(item) {
+        increaseQuantity(item) {
+        this.$store.commit('increaseQuantity', item);
+        },
+        decreaseQuantity(item) {
         if (item.quantity > 1) {
-          item.quantity--;
+            this.$store.commit('decreaseQuantity', item);
         }
-      },
-      removeItem(item) {
-        const index = this.cartItems.indexOf(item);
-        this.cartItems.splice(index, 1);
-      },
+        },
+        removeItem(item) {
+        this.$store.commit('removeItem', item);
+        },
       formattedPrice(price) {
         return `CLP $${price}`;
       },
@@ -146,5 +148,8 @@
     text-align: center;
     color: #555;
   }
+  .quantity-column {
+  width: 180px;
+}
   </style>
   

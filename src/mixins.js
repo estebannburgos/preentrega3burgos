@@ -11,9 +11,9 @@ export const mixins = {
       userId() {
         return this.$store.state.user.id
       },
-      // cartItem() {
-      //   return this.$store.state.carItem
-      // }      
+      cartInProgress() {
+        return this.$store.state.cart
+      }      
     }
 }
 
