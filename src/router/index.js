@@ -8,6 +8,7 @@ import AdminForm from '@/views/AdminForm.vue'
 import AdminOrders from '@/views/AdminOrders.vue'
 import ProductList from '@/components/ProductList.vue';
 import ProductDetail from '@/components/ProductDetail.vue';
+import Cart from '@/components/Cart.vue';
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,10 @@ const routes = [
         component: ProductDetail
       }
     ]
+  },
+  {
+    path: '/cart',
+    component: Cart
   },
   {
     path: '/admin/products',

@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     user: {},
-  //  carrito:[]
+    cart: []
   },
   getters: {
   },
@@ -24,18 +24,18 @@ export default new Vuex.Store({
         else 
           localStorage.removeItem('user');
     },
-    addCarrito(state, comida) {
-        console.log('mutation -> addCarrito', state, comida, new Date().toLocaleString())
-        let index = state.carrito.findIndex(item => item.comida.id == comida.id)
-        if (index == -1) state.carrito.push({ cantidad: 1, comida: comida })            
+    addCart(state, product) {
+        console.log('mutation -> addCart', state, product, new Date().toLocaleString())
+        let index = state.cart.findIndex(item => item.product.id == product.id)
+        if (index == -1) state.cart.push({ quantity: 1, product: product })            
     },
-    deleteItemCarrito(state, index) {
-        console.log('mutation -> deleteItemCarrito', state, index, new Date().toLocaleString())
-        state.carrito.splice(index,1)          
+    deleteItemCart(state, index) {
+        console.log('mutation -> deleteItemCart', state, index, new Date().toLocaleString())
+        state.cart.splice(index, 1)          
     },
-    deleteCarrito(state) {
-        console.log('mutation -> deleteCarrito', state, new Date().toLocaleString())
-        state.carrito = []           
+    deleteCart(state) {
+        console.log('mutation -> deleteCart', state, new Date().toLocaleString())
+        state.cart = []           
     } 
   },
   actions: {
@@ -47,17 +47,17 @@ export default new Vuex.Store({
         console.log('action -> userData', user, new Date().toLocaleString())
         commit('userData', user)
     },
-    addCarrito({commit},comida) {
-        console.log('action -> addCarrito', comida, new Date().toLocaleString())
-        commit('addCarrito', comida)
+    addCart({commit},product) {
+        console.log('action -> addCart', product, new Date().toLocaleString())
+        commit('addCart', product)
     },
-    deleteItemCarrito({commit},index) {
-        console.log('action -> deleteItemCarrito', index, new Date().toLocaleString())
-        commit('deleteItemCarrito', index)
+    deleteItemCart({commit},index) {
+        console.log('action -> deleteItemCart', index, new Date().toLocaleString())
+        commit('deleteItemCart', index)
     },
-    deleteCarrito({commit}) {
-        console.log('action -> deleteCarrito', new Date().toLocaleString())
-        commit('deleteCarrito')
+    deleteCart({commit}) {
+        console.log('action -> deleteCart', new Date().toLocaleString())
+        commit('deleteCart')
     },
   },
   modules: {
