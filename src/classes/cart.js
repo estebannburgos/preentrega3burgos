@@ -12,14 +12,14 @@ export class Cart {
     this.url = this.enviroments.apiBaseUrl + '/users/'
   }
 
-  async getCart(userId) {
-    try {
-      return (await axios.get(this.url+ userId + '/orders/')).data
-    }
-    catch(error) {
-        console.error('Error en getCart: ' + error.message)
-    }
-  }
+//   async getCart(userId) {
+//     try {
+//       return (await axios.get(this.url+ userId + '/orders/')).data
+//     }
+//     catch(error) {
+//         console.error('Error en getCart: ' + error.message)
+//     }
+//   }
 
   async updateCart(userId, cart) {
 
