@@ -133,22 +133,15 @@
       toggleCart() {
         this.$emit("toggle-cart");
       },
-      handleCartClick(event) {
-        event.preventDefault();
-        this.$emit("toggle-cart");
+      
+      logout() {
+      //   this.$emit("logout");
+          // this.isLoggedIn(false);
+          // this.userData({});
+          this.$store.dispatch('isLoggedIn', false)  
+          this.$store.dispatch('userData', {})  
+          this.$router.push('/login')
       },
-      loginClicked() {
-      this.$emit("login-clicked");
-    },
-    toggleLogin() {
-      this.$emit("toggle-login");
-    },
-    logout() {
-    //   this.$emit("logout");
-        this.$store.dispatch('isLoggedIn', false)  
-        this.$store.dispatch('userData', {})  
-        this.$router.push('/login')
-    },
     },
   };
   </script>
